@@ -12,9 +12,47 @@ Cypress.Commands.add("product", (q, type, info, limit) => {
         }
     }).then(response => {
         cy.log(JSON.stringify(response.body))
+
+       //connexion ok avec code status 200
         expect(response).to.be.ok
-        expect(response.body.Similar.Results).lengthOf(limit)
-        expect(response.body.Similar.Info[0].Type).eql(type)
-        //expect(response.body.Similar.Info[0].wTeaser).eql('true')
+
+       
+        //Test sur q(paraametre de recherche) 
+         if(q !== undefined) {
+            expect(response.body.Similar.Info[0].Name).to.equal(q);
+        }else{
+            //expect(response.code).to.be.oneOf([200, 302]);
+            expect(response.body.Similar.Info[0].Name).to.equal('!!!');
+        }                          
+        
+        
+        //Test sur type      
+         if(type !== undefined){
+             //expect(response.body.Similar.Info[0].Type).eql(type)
+             expect(response.body.Similar.Info[0].Type).to.equal(response.body.Similar.Results[0].Type)
+        }else{
+              expect(response.body.Similar.Results).to.be.empty
+            }
+        
+         //test sur info
+        if(info == 1){
+            
+            expect(response.body.Similar.Info[0]).to.have.all.keys('wTeaser', 'yID', 'yUrl','wUrl','Name', 'Type')
+            
+        }else{
+            
+            expect(response.body.Similar.Info[0]).to.not.have.all.keys('wTeaser', 'yID', 'yUrl','wUrl','Name', 'Type')
+            
+        }
+        // Test limit
+        if(limit !== undefined){
+            //expect(response.body.Similar.Results).lengthOf(limit)
+            expect(response.body.Similar.Results.length).to.equal(limit)
+            
+        }else{
+            expect(response.body.Similar.Results.length).to.equal(20)
+        }
+
+        
     })
  })

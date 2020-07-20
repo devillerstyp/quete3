@@ -7,38 +7,17 @@ describe('Request API tests', () => {
 
 	it('tester film', () => {
 		cy.product(product[1].q, product[1].type, product[1].info, product[1].limit)
+    })
+    it('tester info', () => {
+		cy.product(product[2].q, product[2].type, product[2].info, product[2].limit)
+    })
+    it('tester limit', () => {
+		cy.product(product[3].q, product[3].type, product[3].info, product[3].limit)
+    })
+    it('tester q', () => {
+        // pour le cas echeant on peu effacer le q dans le jdd ("q": "Guardians Of The Galaxy Vol. 2")
+		cy.product(product[4].q, product[4].type, product[4].info, product[4].limit)
 	})
 })
 
 
-
-
-/*
-{
-	"Similar": {
-		"Info": [{
-				"Name": "Coldplay",
-				"Type": "music"
-			}
-		],
-		"Results": [{
-				"Name": "Keane",
-				"Type": "music"
-			}, {
-				"Name": "Snow Patrol",
-				"Type": "music"
-			}, {
-				"Name": "Muse",
-				"Type": "music"
-			}, {
-				"Name": "The Killers",
-				"Type": "music"
-			}, {
-				"Name": "Oasis",
-				"Type": "music"
-			}
-		]
-	}
-}
-
-*/
